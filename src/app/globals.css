@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Emotion color stops (RGB for alpha support) */
+    --happy-start: 251 211 77;    /* Yellow */
+    --happy-end: 249 115 22;      /* Orange */
+    --calm-start: 59 130 246;     /* Blue */
+    --calm-end: 20 184 166;       /* Teal */
+    --love-start: 236 72 153;     /* Pink */
+    --love-end: 139 92 246;       /* Purple */
+    --sad-start: 99 102 241;      /* Indigo */
+    --sad-end: 15 23 42;          /* Navy (Slate-900) */
+    --angry-start: 239 68 68;     /* Red */
+    --angry-end: 127 29 29;       /* Deep Red */
+    --nostalgic-start: 146 64 14; /* Brown */
+    --nostalgic-end: 234 179 8;   /* Gold */
+
+    /* Prebuilt gradients for easy bg usage */
+    --gradient-happy: linear-gradient(135deg, rgb(var(--happy-start)) 0%, rgb(var(--happy-end)) 100%);
+    --gradient-calm: linear-gradient(135deg, rgb(var(--calm-start)) 0%, rgb(var(--calm-end)) 100%);
+    --gradient-love: linear-gradient(135deg, rgb(var(--love-start)) 0%, rgb(var(--love-end)) 100%);
+    --gradient-sad: linear-gradient(135deg, rgb(var(--sad-start)) 0%, rgb(var(--sad-end)) 100%);
+    --gradient-angry: linear-gradient(135deg, rgb(var(--angry-start)) 0%, rgb(var(--angry-end)) 100%);
+    --gradient-nostalgic: linear-gradient(135deg, rgb(var(--nostalgic-start)) 0%, rgb(var(--nostalgic-end)) 100%);
+  }
+
+  html, body {
+    @apply bg-white text-black dark:bg-black dark:text-zinc-50;
+  }
+}
+
+@layer components {
+  /* iOS-grade surface with frosted blur and soft shadow */
+  .ios-card {
+    @apply rounded-3xl backdrop-blur-xl bg-white/40 shadow-[0_10px_25px_-5px_rgba(0,0,0,0.1)];
+  }
+
+  .ios-pressable {
+    @apply transition transform duration-150 ease-out active:scale-95;
+  }
+}
+
+
