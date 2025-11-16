@@ -1,24 +1,40 @@
-// app/api/scrape/route.ts
-import metascraper from "metascraper";
-import metascraperAuthor from "metascraper-author";
-import metascraperDate from "metascraper-date";
-import metascraperDescription from "metascraper-description";
-import metascraperImage from "metascraper-image";
-import metascraperLogo from "metascraper-logo";
-import metascraperPublisher from "metascraper-publisher";
-import metascraperTitle from "metascraper-title";
-import metascraperUrl from "metascraper-url";
+// app/api/metadata/route.ts
+export const dynamic = "force-dynamic";
 
-const scraper = metascraper([
-  metascraperAuthor(),
-  metascraperDate(),
-  metascraperDescription(),
-  metascraperImage(),
-  metascraperLogo(),
-  metascraperPublisher(),
-  metascraperTitle(),
-  metascraperUrl(),
-]);
+async function getScraper() {
+  const [
+    metascraper,
+    metascraperAuthor,
+    metascraperDate,
+    metascraperDescription,
+    metascraperImage,
+    metascraperLogo,
+    metascraperPublisher,
+    metascraperTitle,
+    metascraperUrl,
+  ] = await Promise.all([
+    import("metascraper"),
+    import("metascraper-author"),
+    import("metascraper-date"),
+    import("metascraper-description"),
+    import("metascraper-image"),
+    import("metascraper-logo"),
+    import("metascraper-publisher"),
+    import("metascraper-title"),
+    import("metascraper-url"),
+  ]);
+
+  return metascraper.default([
+    metascraperAuthor.default(),
+    metascraperDate.default(),
+    metascraperDescription.default(),
+    metascraperImage.default(),
+    metascraperLogo.default(),
+    metascraperPublisher.default(),
+    metascraperTitle.default(),
+    metascraperUrl.default(),
+  ]);
+}
 
 export async function POST(req: Request) {
   const { url } = await req.json();
@@ -34,7 +50,8 @@ export async function POST(req: Request) {
     const response = await fetch(url);
     const html = await response.text();
 
-    // Scrape the metadata
+    // Scrape the metadata using dynamic import
+    const scraper = await getScraper();
     const metadata = await scraper({ html, url });
 
     return new Response(JSON.stringify(metadata), {

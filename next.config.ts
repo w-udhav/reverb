@@ -13,6 +13,20 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+
+  serverExternalPackages: [
+    "metascraper",
+    "metascraper-author",
+    "metascraper-date",
+    "metascraper-description",
+    "metascraper-image",
+    "metascraper-logo",
+    "metascraper-publisher",
+    "metascraper-title",
+    "metascraper-url",
+    "re2",
+    "url-regex-safe",
+  ],
 };
 
 export default nextConfig;
